@@ -46,6 +46,8 @@ var chatApp = {
           active: false
       };
 
+      chatApp.createUser(userInfo);
+
        /// STORE USER INFO TO LOCAL STORAGE //
       localStorage.localUser = $('input[name="enterUserInput"]').val()
 
@@ -54,8 +56,6 @@ var chatApp = {
       $('#topBar').show();
       $('video').hide();
 
-      chatApp.createUser(userInfo);
-      // chatApp.preventDuplicateUser(userInfo)
     });
 
     /// DELETE USER //

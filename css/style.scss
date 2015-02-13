@@ -70,7 +70,14 @@ video#bgvid {
   font-family:'Helvetica';
   margin-left: 25%;
   font-weight: bold;
-  color: black;
+  color: chartreuse;
+  font-size: 2em;
+}
+
+#logOutBtn {
+  background: white;
+  border: none;
+  color: slateblue;
 }
 
 .mainContent {
@@ -117,8 +124,12 @@ border: none;
   height: 50px;
   outline-width: 0;
 }
-.btn-success{
+#sendMsgBtn{
   width:18%;
+  background: chartreuse;
+  color: black;
+  border: none;
+  font-weight: bold;
 }
 
 .userCard {
@@ -134,8 +145,11 @@ border: none;
   // }
 }
 
-.btn-warning {
-  margin-bottom: 5%;}
+#updateBtn {
+    color: gray;
+    border: 1px solid gray;
+    background: white;
+}
 
 .userIdentifier{
   font-weight:bold;
