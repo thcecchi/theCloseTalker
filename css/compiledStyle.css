@@ -1,0 +1,113 @@
+#logOutBtn {
+  position: absolute;
+  right: 10px;
+  top: 17px; }
+
+#refreshChatsBtn {
+  position: absolute;
+  right: 97px;
+  top: 10px; }
+
+#loginWrapper, #mainWrapper {
+  margin: auto;
+  width: 50%;
+  text-align: center; }
+
+#loginWrapper {
+  margin-top: 15%;
+  background-color: black;
+  opacity: .8;
+  border-radius: 10%;
+  width: 25%;
+  height: 200px; }
+
+.loginTitle {
+  font-family: 'Helvetica';
+  font-size: 2.5em;
+  color: white;
+  font-weight: bold;
+  padding-top: 8%; }
+
+#loginInput {
+  width: 100%;
+  border: none;
+  font-size: 2em;
+  text-align: center;
+  height: 50px;
+  outline-width: 0;
+  color: lightblue;
+  display: block;
+  background-color: black;
+  opacity: .8; }
+
+video#bgvid {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  background: url(polina.jpg) no-repeat;
+  background-size: cover; }
+
+#topBar {
+  box-shadow: 0px 3px 5px #888888;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  background: slateblue; }
+
+.siteTitle {
+  font-family: 'Helvetica';
+  margin-left: 25%;
+  font-weight: bold;
+  color: black; }
+
+.mainContent {
+  padding-top: 20%; }
+
+.messageListContainer {
+  height: 300px;
+  display: inline-block;
+  margin-bottom: 1em;
+  text-align: left;
+  padding-left: 0.5em;
+  overflow: auto;
+  border: none; }
+  .messageListContainer .messageCard .userName {
+    font-size: 1.5em;
+    padding-bottom: 1%;
+    padding-right: 2%;
+    display: inline-block; }
+  .messageListContainer .messageCard .userMessage {
+    display: inline-block; }
+  .messageListContainer .messageCard .deleteMsgIcon {
+    padding-left: 10%;
+    color: lightgray;
+    display: inline-block; }
+
+#messageInput {
+  width: 80%;
+  border: none;
+  font-size: 2.25em;
+  height: 50px;
+  outline-width: 0; }
+
+.btn-success {
+  width: 18%; }
+
+.userCard {
+  display: block; }
+  .userCard .userName, .userCard .deleteUserIcon {
+    display: inline-block;
+    width: 50%; }
+
+.btn-warning {
+  margin-bottom: 5%; }
+
+.userIdentifier {
+  font-weight: bold;
+  color: red;
+  margin-right: 1em; }

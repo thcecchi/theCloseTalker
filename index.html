@@ -5,31 +5,50 @@
     <link rel='stylesheet' href='bower_components/bootstrap/dist/css/bootstrap.css'/>
     <link rel='stylesheet' href='bower_components/font-awesome/css/font-awesome.css'/>
     <link rel='stylesheet' href='bower_components/animate.css'/>
-    <link rel='stylesheet' href='style.css'/>
+    <link rel='stylesheet' href='/css/compiledStyle.css'/>
   </head>
   <body>
-    <div class="wrapper">
-      <!--STORED USER GREETING  -->
-      <div class="login"></div>
 
-      <!--NEW USER LOGIN FORM-->
+    <video autoplay loop id="bgvid">
+      <source src="seinfeld.webm" type="video/webm">
+      <source src="seinfeld.mp4" type="video/mp4">
+      </video>
+
+      <div id='loginWrapper' class="animated bounceInUp">
+      <h1 class="loginTitle">The Close-Talker</h1>
       <form id='enterUserForm' action="">
-        <input type="text" name='enterUserInput'>
-        <button type='submit' class='btn btn-secondary'>Login</button>
+        <input id="loginInput" type="text" name='enterUserInput' placeholder='Enter Username'>
+        <button type='submit' class='btn btn-primary'>Log In</button>
       </form>
-
-      <!-- NEW MESSAGE FORM-->
-      <form id='enterMessageForm' action="">
-        <input type="text" name='enterMessageInput'>
-        <button type='submit' class='btn btn-primary'>Send</button>
-      </form>
-
-      <!--LIST OF MESSAGES-->
-      <section class="messageListContainer"></section>
-
-      <!--LIST OF LOGGED IN USERS-->
-      <section class="userListContainer"></section>
     </div>
+
+      <div id="topBar" class="animated fadeIn fluid-container">
+        <div class="row">
+          <h1 class="siteTitle col-md-11">The Close Talker</h1>
+          <button class='btn btn-danger col-md-1' id='logOutBtn'>Log Out</button>
+          <!-- <button class='btn btn-warning' id='refreshChatsBtn'>Refresh Chats</button> -->
+        </div>
+      </div>
+
+      <div id="mainWrapper" class='container-fluid animated fadeIn'>
+      <div class="mainContent row">
+          <div class="messageListContainer col-md-8"></div>
+          <div class="col-md-4">
+            <h4>Current Users</h4>
+            <button class='btn btn-warning' id='updateBtn'>update name.</button>
+            <div class="userListContainer"></div>
+          </div>
+      </div>
+
+      <div class="row">
+      <form class="col-md-12" id='enterMessageForm' action="">
+        <input type="text" name='enterMessageInput' placeholder='Type Message Here' id='messageInput'>
+        <button type='submit' class='btn btn-success'>Send</button>
+      </form>
+    </div>
+
+  </div>
+
 
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>

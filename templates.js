@@ -11,5 +11,6 @@ templates.messageList = [
 "<div class='messageCard' rel='<%= name %>' data-msgid='<%= _id %>'>",
 "<h5 class='userName'><%= name %></h5>",
 "<p class='userMessage'><%= message %></p>",
+'<i class="fa fa-times deleteMsgIcon" rel="<%= name %>"></i>',
 "</div>"
 ].join("")

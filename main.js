@@ -18,10 +18,18 @@ var chatApp = {
 
    /// IF USER EXISTS IN LOCAL STORAGE HIDE LOGIN FIELD ////
   /////////////////////////////////////////////////////////
-   if(localStorage.LocalUser !== undefined) {
-     $('.login').html(localStorage.LocalUser);
-     $('#enterUserForm').css('display', 'none');
-     chatApp.renderAllUsers();
+   if(localStorage.localUser == undefined) {
+     $('#loginWrapper').show();
+     $('#mainWrapper').hide();
+     $('video').show();
+     $('#topBar').hide();
+   }
+
+   else {
+     $('#loginWrapper').hide();
+     $('#mainWrapper').show();
+     $('video').hide();
+     $('#topBar').show();
    }
 
   },
@@ -38,22 +46,72 @@ var chatApp = {
           active: false
       };
 
-      chatApp.createUser(userInfo);
-
        /// STORE USER INFO TO LOCAL STORAGE //
       localStorage.localUser = $('input[name="enterUserInput"]').val()
 
+      $('#loginWrapper').hide();
+      $('#mainWrapper').show();
+      $('#topBar').show();
+      $('video').hide();
+
+      chatApp.createUser(userInfo);
+      // chatApp.preventDuplicateUser(userInfo)
     });
+
+    /// DELETE USER //
+    ////////////////////
+    $('#mainWrapper').on('click', '.deleteUserIcon', function(e){
+      e.preventDefault();
+      var userCardId = $(this).parent().attr('rel')
+      var userId = $(this).parent().data('userid');
+
+      if (userCardId == localStorage.localUser) {
+        chatApp.deleteUser(userId);
+      }
+
+      else {
+        alert("this ain't you fool!")
+      }
+    });
+
+    /// CHANGE USERNAME //
+    /////////////////////
+    $('#mainWrapper').on('click', '.btn-warning', function (e) {
+        e.preventDefault();
+        var userAlias = localStorage.localUser
+        console.log(userAlias)
+        $("h3:contains('" + userAlias + "')").replaceWith('<input type="text" class="updateUserName" name="updateUserName"></input>');
+        $('.btn-warning').text('submit')
+        var userId = $('.userCard').data('userid');
+        return false;
+
+      });
+
+      $('#mainWrapper').on('dblclick', '.btn-warning', function (e) {
+        e.preventDefault();
+        var userId = $('.userCard').data('userid');
+        var editedUserName = {
+          name: $('.updateUserName').val()
+        }
+
+        var newName = $('.updateUserName').val()
+        $(".userCard").find('input').replaceWith('<h3>' + newName + '</h3>');
+        $('.btn-warning').text('Update')
+
+        localStorage.localUser = newName;
+
+        chatApp.updateUserName(userId, editedUserName);
+        return false;
+
+      });
 
      /// LOGOUT USER //
     //////////////////
-    // $('.userListContainer').on('click', '.delete', function (event) {
-    //   event.preventDefault();
-    //
-    //   var itemId = $('.userCard').data('userid');
-    //   console.log(userId);
-    //   chatApp.deleteUser(userId);
-    // });
+    $('#logOutBtn').on('click', function (e) {
+        e.preventDefault();
+        chatApp.logOutUser();//enables log out
+        $('#topBar').hide();
+    });
 
 
     /// CREATE MESSAGE //
@@ -76,12 +134,12 @@ var chatApp = {
 
     /// DELETE MESSAGE //
     ////////////////////
-    $('.wrapper').on('click', '.deleteMsgIcon', function(e){
+    $('#mainWrapper').on('click', '.deleteMsgIcon', function(e){
       e.preventDefault();
       var msgCardId = $(this).parent().attr('rel')
-      var msgId = $('.messageCard').data('msgid');
+      var msgId = $(this).parent().data('msgid');
 
-      if (msgCardId = localStorage.localUser) {
+      if (msgCardId == localStorage.localUser) {
         chatApp.deleteMessage(msgId);
       }
 
@@ -110,6 +168,29 @@ var chatApp = {
 
   /// USER ACTIONS ////
   ////////////////////
+
+  // preventDuplicateUser: function (passed) {
+  //   $.ajax({
+  //     url:chatApp.config.url,
+  //     type:'GET',
+  //     success: function(retrievedUsers){
+  //       _.each(retrievedUsers, function(eachUser){
+  //         if(eachUser.name.toLowerCase() === passed.name.toLowerCase()){
+  //           localStorage.localUser = eachUser.name;
+  //           console.log('SUCCESS: preventDuplicateUsername (\''+localStorage.localUser+'\')');
+  //           renderAllUsers();
+  //         }
+  //       });
+  //       if(!('localUser' in localStorage)){//passes off only if no matching username was found on server
+  //         chatApp.createUser(passed);
+  //       }
+  //     },
+  //     error: function(){
+  //       console.log('WARNING: preventDuplicateUsername');
+  //     }
+  //   });
+  // },
+
   renderAllUsers: function () {
     $.ajax({
       url: chatApp.config.url,
@@ -143,7 +224,7 @@ var chatApp = {
       data: passedUser,
       type: 'POST',
       success:function(data){
-
+        chatApp.renderAllUsers();
         console.log(passedUser);
       },
       error:function(error){
@@ -164,6 +245,27 @@ var chatApp = {
         console.log(err);
       }
     })
+  },
+
+  updateUserName: function (id, name) {
+        $.ajax({
+          url: chatApp.config.url + '/' + id,
+          data: name,
+          type: 'PUT',
+          success: function (data) {
+            console.log(data);
+            chatApp.renderAllUsers();
+          },
+          error: function (err) {
+            console.log(err);
+          }
+        });
+    },
+
+  logOutUser: function () {
+    delete localStorage.localUser;
+    console.log('SUCCESS: deleted localStorage.localUser');
+    location.reload();
   },
 
   /// MESSAGE ACTIONS ////
